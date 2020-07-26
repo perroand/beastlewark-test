@@ -1,0 +1,17 @@
+.ItemContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+  border: 1px solid black;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  align-items: center;
+  text-align: center;
+}
+
+.Column1 {
+  width: 100%;
+  background-color: black;
+  color: white;
+}
