@@ -7,6 +7,21 @@
   justify-content: center;
 }
 
+.ListHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border: 2px black solid;
+}
+
+.ListHeader input {
+  font-family: inherit;
+  border: 2px solid black;
+  padding: 8px;
+}
+
 .ListItemContainer {
   width: 100%;
   display: flex;
@@ -17,4 +32,10 @@
 .NamesList {
   width: 40%;
   padding: 8px;
+}
+
+.ItemDetail {
+  /* height: 100%; */
+  width: 60%;
+  padding: 8px 8px 16px 8px;
 }
