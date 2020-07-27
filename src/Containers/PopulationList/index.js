@@ -6,6 +6,7 @@ import CustomLoader from "../../Components/CustomLoader";
 import ItemDetail from "../../Components/ItemDetail";
 import SearchFilter from "../../Components/Filters/SearchFilter";
 import SortFilter from "../../Components/Filters/SortFilter";
+import FiltersList from "../../Components/Filters/FiltersList";
 
 const PopulationList = () => {
   const [data, setData] = useState(null);
@@ -17,6 +18,7 @@ const PopulationList = () => {
   const [inputValue, setInputValue] = useState("");
   const [filteredItems, setFilteredItems] = useState(data);
   const [error, setError] = useState("");
+  const [filterOpen, setOpenFilter] = useState(false);
 
   useEffect(() => {
     axios
@@ -90,6 +92,10 @@ const PopulationList = () => {
     console.log(filteredItems);
   };
 
+  const openFilterHandler = () => {
+    setOpenFilter(!filterOpen);
+  };
+
   const namesList = data ? (
     pageResults.map((el) => (
       <ListItem
@@ -107,9 +113,14 @@ const PopulationList = () => {
     <div className={classes.Wrapper}>
       <div className={classes.ListHeader}>
         {/* <p>Actual Population:{data ? ` ${data.length}` : ""} </p> */}
-        <SearchFilter search={searchByNameHandler} />
-        <SortFilter sort={sortHandler} />
-        <h2>Filter</h2>
+        <div className={classes.FiltersHeader}>
+          <div>
+            <SearchFilter search={searchByNameHandler} />
+            <SortFilter sort={sortHandler} />
+          </div>
+          <h2 onClick={openFilterHandler}>Filter</h2>
+        </div>
+        <FiltersList isOpen={filterOpen ? "Open" : "Close"} />
       </div>
       {error ? (
         <div>{error}</div>

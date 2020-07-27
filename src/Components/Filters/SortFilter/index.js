@@ -1,9 +1,10 @@
 import React from "react";
+import classes from "./SortFilter.module.css";
 
 const SortFilter = (props) => {
   return (
     <>
-      <select onChange={props.sort}>
+      <select onChange={props.sort} className={classes.SortFilter}>
         <option selected value="title">
           --Sort Items--
         </option>
@@ -12,7 +13,6 @@ const SortFilter = (props) => {
         <option value="age-asc">Younger to Older</option>
         <option value="age-des">Older to Younger</option>
       </select>
-      ;
     </>
   );
 };

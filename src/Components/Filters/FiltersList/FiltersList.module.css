@@ -1,0 +1,16 @@
+.FiltersContainer {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: 0.7s ease;
+}
+
+.Open {
+  height: 300px;
+}
+
+.Close {
+  height: 0;
+}
