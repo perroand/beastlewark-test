@@ -39,3 +39,13 @@
   width: 60%;
   padding: 8px 8px 16px 8px;
 }
+
+.PaginationContainer {
+  width: 40%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.PaginationContainer {
+  margin-bottom: 8px;
+}
