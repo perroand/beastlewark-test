@@ -16,12 +16,6 @@
   border: 2px black solid;
 }
 
-.ListHeader input {
-  font-family: inherit;
-  border: 2px solid black;
-  padding: 8px;
-}
-
 .ListItemContainer {
   width: 100%;
   display: flex;
@@ -48,4 +42,8 @@
 
 .PaginationContainer {
   margin-bottom: 8px;
+}
+
+.Filter {
+  background-color: blanchedalmond;
 }
