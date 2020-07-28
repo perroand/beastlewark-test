@@ -100,7 +100,7 @@ const PopulationList = () => {
         ? setFilteredItems(filteredArray)
         : setFilteredItems(items);
     }
-  }, [filters]);
+  }, [filters, data]);
 
   const paginationHandler = (val) => {
     if (val === "+") {
