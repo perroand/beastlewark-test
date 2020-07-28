@@ -16,9 +16,12 @@ const PopulationList = () => {
   const [isSelected, setIsSelected] = useState(false);
   const [noResults, setNoResults] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const [filteredItems, setFilteredItems] = useState(data);
+  const [filteredItems, setFilteredItems] = useState([]);
   const [error, setError] = useState("");
   const [filterOpen, setOpenFilter] = useState(false);
+  const [filterValues, setFilterValues] = useState([]);
+  const [filters, setFilters] = useState({ hairColor: [], professions: [] });
+  const [buttonBg, setButtonBg] = useState(false);
 
   useEffect(() => {
     axios
@@ -51,8 +54,49 @@ const PopulationList = () => {
   );
 
   useEffect(() => {
-    setNoResults(data ? (!filteredItems.length ? true : false) : false);
+    setNoResults(filteredItems && !filteredItems.length ? true : false);
   }, [filteredItems]);
+
+  useEffect(() => {
+    const professions = data
+      ? Array.from(
+          new Set(
+            data
+              .map((el) => el.professions)
+              .reduce((pre, act) => [...pre, ...act])
+          )
+        )
+      : [];
+    const hairColor = data
+      ? Array.from(new Set(data.map((el) => el.hair_color)))
+      : [];
+    setFilterValues({
+      professions: professions,
+      hairColor: hairColor,
+    });
+  }, [data]);
+
+  useEffect(() => {
+    if (data !== null) {
+      const items = [...data];
+      const filteredArray = items.filter((item) => {
+        let include = false;
+
+        if (filters.hairColor.length) {
+          include = filters.hairColor.includes(item.hair_color);
+        }
+        if (filters.professions.length) {
+          include = filters.professions.some((el) =>
+            item.professions.includes(el)
+          );
+        }
+
+        console.log(include);
+        return include;
+      });
+      setFilteredItems(filteredArray);
+    }
+  }, [filters]);
 
   const paginationHandler = (val) => {
     if (val === "+") {
@@ -88,12 +132,27 @@ const PopulationList = () => {
       sortArray = sortArray.sort((a, b) => (a.age > b.age ? -1 : 1));
 
     setFilteredItems(sortArray);
-
-    console.log(filteredItems);
   };
 
   const openFilterHandler = () => {
     setOpenFilter(!filterOpen);
+  };
+
+  const filtersHandler = (name, val) => {
+    if (filters) {
+      let newFiltersObj = { ...filters };
+      let newFilters;
+      !newFiltersObj[name].includes(val)
+        ? (newFilters = {
+            ...filters,
+            [name]: [...filters[name], val],
+          })
+        : (newFilters = {
+            ...filters,
+            [name]: [...filters[name].filter((el) => el !== val)],
+          });
+      setFilters(newFilters);
+    }
   };
 
   const namesList = data ? (
@@ -120,7 +179,11 @@ const PopulationList = () => {
           </div>
           <h2 onClick={openFilterHandler}>Filter</h2>
         </div>
-        <FiltersList isOpen={filterOpen ? "Open" : "Close"} />
+        <FiltersList
+          isOpen={filterOpen ? "Open" : "Close"}
+          values={filterValues}
+          click={filtersHandler}
+        />
       </div>
       {error ? (
         <div>{error}</div>

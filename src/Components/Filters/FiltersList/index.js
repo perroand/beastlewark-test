@@ -9,11 +9,31 @@ const FiltersList = (props) => {
     >
       <div>
         <h3>Hair Color</h3>
-        <Button />
+        {props.values.hairColor
+          ? props.values.hairColor.map((el) => (
+              <Button
+                name={el}
+                key={el}
+                click={props.click}
+                value={el}
+                tag={"hairColor"}
+              />
+            ))
+          : ""}
       </div>
       <div>
         <h3>Profession</h3>
-        <Button />
+        {props.values.professions
+          ? props.values.professions.map((el) => (
+              <Button
+                name={el}
+                key={el}
+                click={props.click}
+                value={el}
+                tag={"professions"}
+              />
+            ))
+          : ""}
       </div>
     </div>
   );

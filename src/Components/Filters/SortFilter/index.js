@@ -5,7 +5,7 @@ const SortFilter = (props) => {
   return (
     <>
       <select onChange={props.sort} className={classes.SortFilter}>
-        <option selected value="title">
+        <option defaultValue value="title">
           --Sort Items--
         </option>
         <option value="name-des">Name Descending</option>
