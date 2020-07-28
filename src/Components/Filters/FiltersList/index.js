@@ -8,7 +8,9 @@ const FiltersList = (props) => {
       className={[classes.FiltersContainer, classes[props.isOpen]].join(" ")}
     >
       <div>
-        <h3>Hair Color</h3>
+        <hr />
+        <h3>HAIR COLOR</h3>
+        <hr />
         {props.values.hairColor
           ? props.values.hairColor.map((el) => (
               <Button
@@ -17,12 +19,15 @@ const FiltersList = (props) => {
                 click={props.click}
                 value={el}
                 tag={"hairColor"}
+                selected={props.selected.hairColor}
               />
             ))
           : ""}
+        <hr />
       </div>
       <div>
-        <h3>Profession</h3>
+        <h3>PROFESSION</h3>
+        <hr />
         {props.values.professions
           ? props.values.professions.map((el) => (
               <Button
@@ -31,9 +36,11 @@ const FiltersList = (props) => {
                 click={props.click}
                 value={el}
                 tag={"professions"}
+                selected={props.selected.professions}
               />
             ))
           : ""}
+        <hr />
       </div>
     </div>
   );

@@ -90,11 +90,11 @@ const PopulationList = () => {
             item.professions.includes(el)
           );
         }
-
-        console.log(include);
         return include;
       });
-      setFilteredItems(filteredArray);
+      filteredArray.length
+        ? setFilteredItems(filteredArray)
+        : setFilteredItems(items);
     }
   }, [filters]);
 
@@ -132,6 +132,7 @@ const PopulationList = () => {
       sortArray = sortArray.sort((a, b) => (a.age > b.age ? -1 : 1));
 
     setFilteredItems(sortArray);
+    setPage(1);
   };
 
   const openFilterHandler = () => {
@@ -142,16 +143,21 @@ const PopulationList = () => {
     if (filters) {
       let newFiltersObj = { ...filters };
       let newFilters;
-      !newFiltersObj[name].includes(val)
-        ? (newFilters = {
-            ...filters,
-            [name]: [...filters[name], val],
-          })
-        : (newFilters = {
-            ...filters,
-            [name]: [...filters[name].filter((el) => el !== val)],
-          });
+      if (!newFiltersObj[name].includes(val)) {
+        setButtonBg(true);
+        newFilters = {
+          ...filters,
+          [name]: [...filters[name], val],
+        };
+      } else {
+        setButtonBg(false);
+        newFilters = {
+          ...filters,
+          [name]: [...filters[name].filter((el) => el !== val)],
+        };
+      }
       setFilters(newFilters);
+      setPage(1);
     }
   };
 
@@ -173,16 +179,19 @@ const PopulationList = () => {
       <div className={classes.ListHeader}>
         {/* <p>Actual Population:{data ? ` ${data.length}` : ""} </p> */}
         <div className={classes.FiltersHeader}>
-          <div>
-            <SearchFilter search={searchByNameHandler} />
+          <SearchFilter search={searchByNameHandler} />
+          <div className={classes.LastFiltersItems}>
             <SortFilter sort={sortHandler} />
+            <h2 onClick={openFilterHandler} className={classes.FilterTitle}>
+              FILTER
+            </h2>
           </div>
-          <h2 onClick={openFilterHandler}>Filter</h2>
         </div>
         <FiltersList
           isOpen={filterOpen ? "Open" : "Close"}
           values={filterValues}
           click={filtersHandler}
+          selected={filters}
         />
       </div>
       {error ? (
@@ -200,13 +209,23 @@ const PopulationList = () => {
             </div>
           </div>
           <div className={classes.PaginationContainer}>
-            <p onClick={() => paginationHandler("-")}>PREV</p>
-            <p>
+            <p
+              onClick={() => paginationHandler("-")}
+              style={{ cursor: "pointer" }}
+            >
+              PREV
+            </p>
+            <p style={{ fontSize: "0.8rem" }}>
               {filteredItems && filteredItems.length
                 ? `Page ${page} of ${Math.ceil(filteredItems.length / 10)}`
                 : "No Results"}
             </p>
-            <p onClick={() => paginationHandler("+")}>NEXT</p>
+            <p
+              onClick={() => paginationHandler("+")}
+              style={{ cursor: "pointer" }}
+            >
+              NEXT
+            </p>
           </div>
         </>
       )}

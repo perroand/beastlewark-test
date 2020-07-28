@@ -2,11 +2,19 @@
   /* width: 200px; */
   padding: 5px 10px;
   font-family: inherit;
-  background-color: rgb(57, 168, 241);
   border: 1.2px solid black;
   border-radius: 6px;
   color: black;
   font-size: inherit;
   margin: 3px;
   /* font-weight: bold; */
+  cursor: pointer;
+}
+
+.White {
+  background-color: white;
+}
+
+.Green {
+  background-color: rgb(52, 122, 79);
 }
