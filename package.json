@@ -15,7 +15,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest --verbose",
+    "test:watch": "jest --watchAll --verbose",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -32,5 +33,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-react-jsx": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "jest-react-hooks-shallow": "^1.4.1",
+    "react-test-renderer": "^16.13.1"
   }
 }

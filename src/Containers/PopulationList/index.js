@@ -21,7 +21,6 @@ const PopulationList = () => {
   const [filterOpen, setOpenFilter] = useState(false);
   const [filterValues, setFilterValues] = useState([]);
   const [filters, setFilters] = useState({ hairColor: [], professions: [] });
-  const [buttonBg, setButtonBg] = useState(false);
 
   useEffect(() => {
     axios
@@ -45,9 +44,14 @@ const PopulationList = () => {
     () =>
       setFilteredItems(
         data
-          ? data.filter((el) =>
-              el.name.toLowerCase().startsWith(inputValue.toLowerCase())
-            )
+          ? data.filter((el) => {
+              const [name, surname] = el.name.split(" ");
+              return (
+                name.toLowerCase().startsWith(inputValue.toLowerCase()) ||
+                surname.toLowerCase().startsWith(inputValue.toLowerCase()) ||
+                el.name.toLowerCase().startsWith(inputValue.toLowerCase())
+              );
+            })
           : data
       ),
     [data, inputValue]
@@ -144,13 +148,11 @@ const PopulationList = () => {
       let newFiltersObj = { ...filters };
       let newFilters;
       if (!newFiltersObj[name].includes(val)) {
-        setButtonBg(true);
         newFilters = {
           ...filters,
           [name]: [...filters[name], val],
         };
       } else {
-        setButtonBg(false);
         newFilters = {
           ...filters,
           [name]: [...filters[name].filter((el) => el !== val)],
